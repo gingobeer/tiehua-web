@@ -1,0 +1,13 @@
+{
+  "name": "tiehua-web",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "独立的纯前端打铁花小游戏",
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "test": "node --test test/*.test.mjs",
+    "build": "node scripts/build.mjs"
+  },
+  "engines": { "node": ">=18" }
+}

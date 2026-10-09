@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#111310">
+  <meta name="description" content="舀一勺铁水，挥出一场金雨。独立纯前端打铁花小游戏，支持鼠标与触摸。">
+  <title>铁花 — 把一瞬，打成漫天星河</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23111310'/%3E%3Cpath d='M32 6L36 26L58 32L36 36L32 58L27 36L6 32L27 27Z' fill='%23e7ac62'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="shell">
+    <header class="header">
+      <a class="brand" href="./" aria-label="铁花首页"><span class="brand-mark">✳</span><span>铁花<span class="brand-en">TIEHUA</span></span></a>
+      <div class="header-caption">一场关于火、重力与瞬间的实验</div>
+      <div class="header-actions"><span class="local-badge"><i></i> 纯前端 · 无需登录</span><button id="sound" class="icon-button" aria-label="开启声音" aria-pressed="false">声 OFF</button></div>
+    </header>
+
+    <main>
+      <section class="intro">
+        <div class="eyebrow"><span></span> INTERACTIVE FOLK ART / 民俗交互实验</div>
+        <h1>把一瞬，打成<span>漫天星河。</span></h1>
+        <p>以手为锤，以夜为幕。让每一次挥动，都开出不一样的铁花。</p>
+      </section>
+
+      <div class="workspace">
+        <section class="stage-card" aria-label="打铁花游戏区域">
+          <div class="stage-top"><span><i class="live-dot"></i><span id="mode-label">静候开炉</span></span><span class="stage-location">铁花实验场 <span>01</span></span></div>
+          <div class="canvas-wrap" id="canvas-wrap">
+            <canvas id="game" tabindex="0" aria-label="打铁花画布。按住炉口舀取，上移松开抛出，再向上划过铁水击打。键盘可按一二三执行辅助动作。"></canvas>
+            <div class="stage-vignette"></div>
+            <div class="scene-caption"><span>THE NIGHT IS YOUR CANVAS</span><span>夜色正好 · 等一场金雨</span></div>
+            <div class="stage-stats" id="stage-stats" hidden><div><small>本炉得分</small><strong id="score">0000</strong></div><div class="timer"><small id="time-caption">剩余时间</small><strong id="time">60<em>s</em></strong></div></div>
+            <div class="overlay" id="welcome">
+              <div class="seal">一瞬<br>千星</div>
+              <h2>借一点火，<br>还夜空一场花。</h2>
+              <p>不用等节日。现在，开你的第一炉。</p>
+              <button class="primary" id="start">开炉打铁花 <span>↗</span></button>
+              <button class="text-button" id="watch">先看一场铁花 <span>→</span></button>
+            </div>
+            <div class="overlay pause-overlay" id="pause-overlay" hidden><div class="eyebrow">TAKE YOUR TIME</div><h2>让火光，等一等。</h2><p>游戏已暂停，时间不会流走。</p><button class="primary" id="resume">继续这一炉 <span>↗</span></button></div>
+            <div class="overlay" id="result" hidden><div class="eyebrow">A MOMENT TO REMEMBER</div><h2>一炉花成。</h2><p id="result-summary"></p><div class="result-number" id="result-score">0</div><p id="best-score"></p><button class="primary" id="again">再开一炉 <span>↗</span></button></div>
+            <div class="demo-controls" id="demo-controls" hidden><span>演示模式 · 非玩家成绩</span><button id="demo-play">换我来打 ↗</button></div>
+            <div class="action-hint" id="action-hint" hidden><span id="hint-number">01</span><div><strong id="hint-title">按住炉口，舀取铁水</strong><span id="hint-copy">装载后，上提并松开</span></div></div>
+          </div>
+          <div class="stage-bottom"><span id="device-hint">拖动鼠标 / 滑动手指</span><div><button id="pause" disabled>暂停 <kbd>P</kbd></button><button id="fullscreen" aria-label="全屏游戏">全屏 ⛶</button></div></div>
+        </section>
+
+        <aside class="sidebar">
+          <section class="guide panel">
+            <div class="section-label"><span>玩法手记</span><span class="tiny">HOW TO PLAY</span></div>
+            <h2>三步，打出你的花。</h2>
+            <ol class="steps">
+              <li id="step-scoop" class="active"><span class="step-number">01</span><div><h3>舀一勺热烈 <span>HOLD</span></h3><p>按住炉口，停留片刻。<br>勺里越满，铁花越丰盛。</p></div></li>
+              <li id="step-toss"><span class="step-number">02</span><div><h3>抛一个弧线 <span>LIFT</span></h3><p>向上提一点，松开即可。<br>稍停再松手，也能抛起来。</p></div></li>
+              <li id="step-strike"><span class="step-number">03</span><div><h3>击一场星雨 <span>STRIKE</span></h3><p>再按下，向上划过虚线圈。<br>圈内都能击中，不必瞄准亮点。</p></div></li>
+            </ol>
+            <div class="guide-note"><span>↗</span><p>试试不同方向。轻挑是一束星，<br>重击是一场雨。</p></div>
+          </section>
+          <section class="instrument panel">
+            <fieldset class="difficulty-picker">
+              <legend>选择操作难度</legend>
+              <div class="difficulty-options">
+                <label><input type="radio" name="difficulty" value="easy" checked><span>轻松体验</span></label>
+                <label><input type="radio" name="difficulty" value="realistic"><span>拟真挑战</span></label>
+              </div>
+              <p id="difficulty-description">辅助上抛 · 大范围命中 · 待击慢速</p>
+              <button id="apply-difficulty" hidden>切换并重新开炉</button>
+              <small id="difficulty-notice">开炉前选择；两档最高分分别保存。</small>
+            </fieldset>
+            <div class="section-label"><span>这一击的分量</span><span class="tiny">LIVE PHYSICS</span></div>
+            <div class="power-readout"><strong id="power">00<span>%</span></strong><span id="power-label">等待挥击</span></div>
+            <div class="power-track"><div id="power-bar"></div></div><div class="power-scale"><span>轻挑</span><span>重击</span></div>
+            <div class="metrics"><div><small>装载量</small><strong id="load">0<span>%</span></strong></div><div><small>最高花高</small><strong id="height">0.0<span>m</span></strong></div><div><small>挥击速度</small><strong id="speed">—<span>m/s</span></strong></div></div>
+            <div class="practice-row"><div><strong>慢慢练，不计时</strong><small>下一炉生效 · 自由练习模式</small></div><label class="switch"><input type="checkbox" id="practice" aria-label="自由练习模式"><span></span></label></div>
+          </section>
+          <section class="footnote"><span>✳</span><p>铁花不是烟花，是炽热铁滴划过夜色的轨迹。<br>此处为实时物理近似，请勿在现实中模仿。</p></section>
+        </aside>
+      </div>
+      <footer><span>铁花 TIEHUA <span class="footer-dot">·</span> A LITTLE FIRE, A THOUSAND STARS.</span><span>键盘辅助：1 舀取 / 2 抛出 / 3 击打 <span class="footer-dot">·</span> <button id="help-button">操作说明</button></span></footer>
+    </main>
+  </div>
+  <p class="sr-only" id="difficulty-disclaimer">拟真挑战仅减少操作辅助，仍是二维物理近似。键盘自动瞄准仍可使用，辅助回合不保存最高分。</p>
+  <dialog id="help-dialog"><button id="close-help" class="dialog-close" aria-label="关闭说明">×</button><div class="eyebrow">A SMALL GUIDE</div><h2>让每一击，都有回应。</h2><p>鼠标或触摸：按住左下炉口约 0.2 秒，向上提一点并松开，稍停再松手也可以。随后重新按下，向上划过铁水周围的虚线圈即可成花，不必精确碰到亮点。待击阶段有慢速辅助，成花后正常飞行。</p><p>键盘辅助：开炉后按 <b>1</b> 装载、<b>2</b> 抛铁、<b>3</b> 自动瞄准击打。<b>Shift + 3</b> 为重击。这是辅助操作，不参与真实手势比较。<b>P</b> 暂停或恢复。</p><p>自由练习不计时。排行榜仅保存在当前浏览器，没有账号、上传或跨设备同步。声音默认关闭，可点击右上角开启。</p><p class="muted">模拟采用重力、空气阻力、冷却与能量预算；合金参数、手部动作和花形均为近似，不代表真实工艺训练。</p></dialog>
+  <div id="announcement" class="sr-only" aria-live="polite"></div>
+  <script type="module" src="./src/app.js"></script>
+</body>
+</html>
