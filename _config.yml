@@ -1,0 +1,10 @@
+# Publish only the game's static runtime files, not development/test tooling.
+exclude:
+  - README.md
+  - package.json
+  - package-lock.json
+  - scripts
+  - test
+  - node_modules
+  - dist
+  - artifacts

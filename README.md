@@ -140,4 +140,14 @@ npm run build
 
 将 `dist/` 全部内容上传到静态托管服务（例如对象存储+CDN、GitHub Pages、Cloudflare Pages、Netlify）。使用HTTPS，确保 `.js` 为JavaScript MIME类型；资源均为相对路径，可部署在子目录。
 
-构建结果仅包含HTML/CSS/JS，不包含测试工具、截图或本地服务。当前只完成本地预览，**没有部署公网网址**。不依赖微信登录或 AppID。
+构建结果仅包含HTML/CSS/JS，不包含测试工具、截图或本地服务。不依赖微信登录或 AppID。
+
+### GitHub Pages
+
+在线入口：**https://gingobeer.github.io/tiehua-web/**
+
+仓库 Settings → Pages 的 Source 使用 **Deploy from a branch**，分支 **main**，目录 **/ (root)**。本项目使用原生 ES Modules，根目录的入口和 `src/` 即可直接运行，无需编译。
+
+推送到 `main` 后由 GitHub 内置 Pages 流程自动发布；`_config.yml` 排除说明文档、测试与开发脚本。发布前请运行 `npm test`，当前分支发布方式不会自动执行项目测试。`npm run build` 仍用于生成可供其他静态托管服务使用的 `dist/`。
+
+部署状态可在 Actions 的 `pages build and deployment` 查看。无需额外服务器、工作流权限或自定义令牌。
